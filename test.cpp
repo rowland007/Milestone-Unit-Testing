@@ -208,9 +208,24 @@ TEST_F(CollectionTest, ReserveIncreaseCapacityNotSizeTest) {
 // TODO: Create a test to verify the std::out_of_range exception is thrown when calling at() with an index out of bounds
 // NOTE: This is a negative test
 TEST_F(CollectionTest, IndexOutOfRangeTest) {
-    std::vector<int> myvector(10);
-    EXPECT_THROW(myvector.at(20), std::out_of_range);
-    ASSERT_THROW(myvector.at(20), std::out_of_range);
+    add_entries(5);
+
+    EXPECT_THROW(collection->at(20), std::out_of_range);
 }
 
 // TODO: Create 2 unit tests of your own to test something on the collection - do 1 positive & 1 negative
+TEST_F(CollectionTest, CollectionValueSwapTest) {
+    add_entries(3);
+    std::vector<int> otherCollection(5, 200);
+    ASSERT_TRUE(collection->size() == 3);
+    collection->swap(otherCollection);
+    ASSERT_TRUE(collection->size() == 5);
+}
+
+TEST_F(CollectionTest, TestPopBack) {
+    add_entries(3);
+
+    collection->pop_back();
+
+    ASSERT_FALSE(collection->size() == 10);
+}
